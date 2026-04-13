@@ -4,20 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AntD Upload 文件信息获取</title>
-  <!-- 1. AntD 4.x 样式（UMD 格式，原生支持） -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/antd@4.24.15/dist/antd.min.css" />
-  <!-- 2. React 核心（AntD 4.x 最佳兼容版本） -->
-  <script src="https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-  <!-- 3. Babel 转译器（核心！解决 JSX 语法报错） -->
-  <script src="https://cdn.jsdelivr.net/npm/babel-standalone@7.23.9/babel.min.js"></script>
-  <!-- 4. AntD 4.x 组件库（UMD 格式，挂载到 window.antd） -->
-  <script src="https://cdn.jsdelivr.net/npm/antd@4.24.15/dist/antd.min.js"></script>
+  <!-- 1. AntD 4.x 样式（使用官方 cdnjs 稳定源） -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.24.15/antd.min.css" />
+  <!-- 2. React 核心（官方稳定源） -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js"></script>
+  <!-- 3. Babel 转译器（修复 404 关键，官方稳定源） -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+  <!-- 4. AntD 4.x 组件库（官方稳定源） -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/antd/4.24.15/antd.min.js"></script>
 </head>
 <body>
   <div id="root"></div>
 
-  <!-- 用 type="text/babel" 标记，让 Babel 转译 JSX -->
+  <!-- 标记为 Babel 转译代码 -->
   <script type="text/babel">
     const { Upload, Button, message } = antd;
 
@@ -45,7 +45,7 @@
       </div>
     );
 
-    // React 17 直接挂载（兼容所有环境）
+    // React 17 挂载方式
     ReactDOM.render(<App />, document.getElementById('root'));
   </script>
 </body>
