@@ -4,17 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AntD Upload 文件信息获取</title>
-  <!-- AntD 4.x 样式（CDN 原生支持） -->
+  <!-- 1. AntD 4.x 样式（UMD 格式，原生支持） -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/antd@4.24.15/dist/antd.min.css" />
-  <!-- React 17.x（AntD 4.x 最佳兼容版本） -->
+  <!-- 2. React 核心（AntD 4.x 最佳兼容版本） -->
   <script src="https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.production.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-  <!-- AntD 4.x 组件库（UMD 格式，直接挂载到 window.antd） -->
+  <!-- 3. Babel 转译器（核心！解决 JSX 语法报错） -->
+  <script src="https://cdn.jsdelivr.net/npm/babel-standalone@7.23.9/babel.min.js"></script>
+  <!-- 4. AntD 4.x 组件库（UMD 格式，挂载到 window.antd） -->
   <script src="https://cdn.jsdelivr.net/npm/antd@4.24.15/dist/antd.min.js"></script>
 </head>
 <body>
   <div id="root"></div>
-  <script>
+
+  <!-- 用 type="text/babel" 标记，让 Babel 转译 JSX -->
+  <script type="text/babel">
     const { Upload, Button, message } = antd;
 
     const uploadProps = {
