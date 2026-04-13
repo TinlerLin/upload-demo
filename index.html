@@ -2,37 +2,62 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>文件上传信息获取</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/antd@5/dist/reset.css" />
-  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/antd@5/dist/antd.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AntD Upload 文件信息获取</title>
+  <!-- 1. 先加载 AntD 样式 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/antd@5.20.5/dist/reset.css" />
+  <!-- 2. 再加载 React 核心（必须先于 ReactDOM 和 AntD） -->
+  <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <!-- 3. 最后加载 AntD 组件库（固定版本，避免CDN缓存问题） -->
+  <script src="https://cdn.jsdelivr.net/npm/antd@5.20.5/dist/antd.min.js"></script>
 </head>
 <body>
   <div id="root"></div>
   <script>
-    const { Upload, Button, message } = antd;
-    const uploadProps = {
-      beforeUpload(file) {
-        console.log("===== 文件信息 =====");
-        console.log("文件名：", file.name);
-        console.log("文件大小：", (file.size / 1024).toFixed(2) + " KB");
-        console.log("文件类型：", file.type);
-        console.log("最后修改：", new Date(file.lastModified).toLocaleString());
-        message.success("已获取文件信息");
-        return false;
+    // 等待所有资源加载完成后再执行，彻底避免初始化失败
+    window.onload = function() {
+      // 双重校验，确保 antd 对象存在
+      if (!window.antd) {
+        console.error("AntD 加载失败，请检查CDN链接");
+        return;
+      }
+
+      const { Upload, Button, message } = antd;
+
+      const uploadProps = {
+        beforeUpload(file) {
+          console.log("===== 上传文件信息 =====");
+          console.log("文件名：", file.name);
+          console.log("文件大小：", (file.size / 1024).toFixed(2) + " KB");
+          console.log("文件类型：", file.type || "未知类型");
+          console.log("最后修改时间：", new Date(file.lastModified).toLocaleString());
+          console.log("完整文件对象：", file);
+
+          message.success(`文件「${file.name}」信息已获取`);
+          // 阻止自动上传，仅打印信息
+          return false;
+        },
+      };
+
+      const App = () => (
+        <div style={{ padding: '50px', maxWidth: '400px', margin: '0 auto' }}>
+          <h2 style={{ marginBottom: '20px' }}>AntD Upload 文件信息演示</h2>
+          <Upload {...uploadProps}>
+            <Button type="primary" size="large">点击上传文件</Button>
+          </Upload>
+        </div>
+      );
+
+      // 兼容 React 18 挂载方式
+      const rootElement = document.getElementById('root');
+      if (ReactDOM.createRoot) {
+        const root = ReactDOM.createRoot(rootElement);
+        root.render(<App />);
+      } else {
+        ReactDOM.render(<App />, rootElement);
       }
     };
-    const App = () => (
-      <div style={{ padding: '50px' }}>
-        <h2>AntD Upload 文件信息</h2>
-        <Upload {...uploadProps}>
-          <Button type="primary">选择文件</Button>
-        </Upload>
-      </div>
-    );
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
   </script>
 </body>
 </html>
